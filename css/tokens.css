@@ -1,0 +1,20 @@
+:root {
+    /* palette */
+    --olive: #4A5240;
+    --periwinkle: #C6CAED;
+    --lilac: #ADA8BE;
+    --mauve: #A28497;
+    --taupe: #6F5E5C;
+
+    /* the vibe */
+    --bg: var(--periwinkle);
+    --ink: var(--olive);
+    --muted: rgba(74, 82, 64, .72);
+    --soft: rgba(255, 255, 255, .40);
+    /* glass panel */
+    --soft-2: rgba(173, 168, 190, .28);
+    /* lilac haze */
+    --line: rgba(74, 82, 64, .16);
+    --shadow: 0 12px 30px rgba(0, 0, 0, .12);
+
+}

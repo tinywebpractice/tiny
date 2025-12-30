@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>notebook — tinywebpractice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+
+    <style>
+        /* admin-only tweaks */
+        .field {
+            margin-top: 14px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px 12px;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .32);
+            color: var(--ink);
+            outline: none;
+        }
+
+        textarea {
+            min-height: 220px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 12px;
+        }
+
+        @media (max-width:640px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn {
+            margin-top: 14px;
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(162, 132, 151, .45);
+            background: rgba(162, 132, 151, .18);
+            color: var(--ink);
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .btn:hover {
+            background: rgba(162, 132, 151, .24);
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--taupe);
+            min-height: 1.2em;
+        }
+
+        .tinyhint {
+            margin-top: 12px;
+            font-size: 12px;
+            color: rgba(74, 82, 64, .62);
+        }
+
+        .tinyhint code {
+            color: rgba(74, 82, 64, .75);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="brand">tinywebpractice</div>
+            <div>
+                <a href="index.html">home</a>
+                <a href="blog.html">blog</a>
+            </div>
+        </nav>
+
+        <section class="card">
+            <h1>notebook</h1>
+            <p>private door. you write, it saves. no deploys.</p>
+
+            <form id="adminForm" autocomplete="off">
+                <div class="field">
+                    <div class="label">admin key</div>
+                    <input id="key" type="password" placeholder="lupita's key (secret)" />
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <div class="label">title</div>
+                        <input id="title" type="text" placeholder="give it a small name" />
+                    </div>
+
+                    <div class="field">
+                        <div class="label">mood (optional)</div>
+                        <input id="mood" type="text" placeholder="foggy / tired / soft" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="label">thought</div>
+                    <textarea id="body" placeholder="type it plain. no pressure."></textarea>
+                </div>
+
+                <button class="btn" type="submit">publish</button>
+                <div id="status" class="status"></div>
+
+                <div class="tinyhint">
+                    keep this page unlinked. bookmark it. rename it if you want.
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script type="module" src="js/admin.js"></script>
+</body>
+
+</html>
