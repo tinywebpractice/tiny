@@ -1,5 +1,6 @@
 export const API_BASE = "https://thought-tracker-api.gzamlo98.workers.dev";
 
+// optional but nice: keep GET logic here too
 export async function getPosts() {
   const res = await fetch(`${API_BASE}/posts`);
   if (!res.ok) throw new Error(`GET /posts failed: ${res.status}`);

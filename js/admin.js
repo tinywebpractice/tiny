@@ -23,10 +23,9 @@ form.addEventListener("submit", async (e) => {
     setStatus("posting…");
 
     try {
-        await createPost({ key, title, mood, body });
+        await createPost(key, { title, mood, body }); // 
         setStatus("published ✦");
 
-        // clear only the post fields (not the key)
         $("#title").value = "";
         $("#mood").value = "";
         $("#body").value = "";
