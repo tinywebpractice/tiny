@@ -6,30 +6,50 @@ const form = $("#adminForm");
 const statusEl = $("#status");
 
 function setStatus(msg) {
-    statusEl.textContent = msg;
+  statusEl.textContent = msg;
 }
 
 form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const key = $("#key").value.trim();
-    const title = $("#title").value.trim();
-    const mood = $("#mood").value.trim();
-    const body = $("#body").value.trim();
+  const key = ($("#key")?.value || "").trim();
+  const title = ($("#title")?.value || "").trim();
+  const mood = ($("#mood")?.value || "").trim();
+  const body = ($("#body")?.value || "").trim();
 
-    if (!key) return setStatus("missing admin key.");
-    if (!title || !body) return setStatus("title + thought are required.");
+  // NEW: embed fields (optional)
+  const embed_type = ($("#embed_type")?.value || "").trim();
+  const embed_ref = ($("#embed_ref")?.value || "").trim();
+  const embed_title = ($("#embed_title")?.value || "").trim();
 
-    setStatus("posting…");
+  if (!key) return setStatus("missing admin key.");
+  if (!title || !body) return setStatus("title + thought are required.");
 
-    try {
-        await createPost(key, { title, mood, body }); // 
-        setStatus("published ✦");
+  // if they pick an embed type but forget the ref, nudge them
+  if (embed_type && !embed_ref) return setStatus("embed needs an id/url (or set embed type to none).");
 
-        $("#title").value = "";
-        $("#mood").value = "";
-        $("#body").value = "";
-    } catch (err) {
-        setStatus("error: " + err.message);
-    }
+  setStatus("posting…");
+
+  try {
+    await createPost(key, {
+      title,
+      mood,
+      body,
+      embed_type: embed_type || null,
+      embed_ref: embed_ref || null,
+      embed_title: embed_title || null,
+    });
+
+    setStatus("published ✦");
+
+    $("#title").value = "";
+    $("#mood").value = "";
+    $("#body").value = "";
+
+    if ($("#embed_type")) $("#embed_type").value = "";
+    if ($("#embed_ref")) $("#embed_ref").value = "";
+    if ($("#embed_title")) $("#embed_title").value = "";
+  } catch (err) {
+    setStatus("error: " + err.message);
+  }
 });

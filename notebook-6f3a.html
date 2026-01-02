@@ -2,132 +2,186 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>notebook — tinywebpractice</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>notebook — tinywebpractice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="css/tokens.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
 
-    <style>
-        /* admin-only tweaks */
-        .field {
-            margin-top: 14px;
-        }
+  <style>
+    /* notebook admin-only tweaks (kept inline on purpose) */
 
-        input,
-        textarea {
-            width: 100%;
-            padding: 12px 12px;
-            border-radius: 14px;
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, .32);
-            color: var(--ink);
-            outline: none;
-        }
+    .field {
+      margin-top: 14px;
+    }
 
-        textarea {
-            min-height: 220px;
-            resize: vertical;
-            line-height: 1.6;
-        }
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.32);
+      color: var(--ink);
+      outline: none;
+      font: inherit;
+    }
 
-        .row {
-            display: grid;
-            grid-template-columns: 1.2fr .8fr;
-            gap: 12px;
-        }
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(74, 82, 64, 0.55);
+    }
 
-        @media (max-width:640px) {
-            .row {
-                grid-template-columns: 1fr;
-            }
-        }
+    textarea {
+      min-height: 220px;
+      resize: vertical;
+      line-height: 1.6;
+    }
 
-        .btn {
-            margin-top: 14px;
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 14px;
-            border: 1px solid rgba(162, 132, 151, .45);
-            background: rgba(162, 132, 151, .18);
-            color: var(--ink);
-            cursor: pointer;
-            font-weight: 700;
-        }
+    select {
+      appearance: none;
+      cursor: pointer;
+    }
 
-        .btn:hover {
-            background: rgba(162, 132, 151, .24);
-        }
+    .row {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 12px;
+    }
 
-        .status {
-            margin-top: 10px;
-            font-size: 13px;
-            color: var(--taupe);
-            min-height: 1.2em;
-        }
+    @media (max-width: 640px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        .tinyhint {
-            margin-top: 12px;
-            font-size: 12px;
-            color: rgba(74, 82, 64, .62);
-        }
+    .btn {
+      margin-top: 14px;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(162, 132, 151, 0.45);
+      background: rgba(162, 132, 151, 0.18);
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.15s ease, transform 0.04s ease;
+    }
 
-        .tinyhint code {
-            color: rgba(74, 82, 64, .75);
-        }
-    </style>
+    .btn:hover {
+      background: rgba(162, 132, 151, 0.24);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--taupe);
+      min-height: 1.2em;
+    }
+
+    .tinyhint {
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(74, 82, 64, 0.62);
+    }
+
+    .tinyhint code {
+      color: rgba(74, 82, 64, 0.75);
+    }
+
+    /* optional: keep hints tighter inside a field */
+    .field .tinyhint {
+      margin-top: 8px;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="wrapper">
-        <nav class="nav">
-            <div class="brand">tinywebpractice</div>
-            <div>
-                <a href="index.html">home</a>
-                <a href="blog.html">blog</a>
-            </div>
-        </nav>
+  <div class="wrapper">
+    <nav class="nav">
+      <div class="brand">tinywebpractice</div>
+      <div>
+        <a href="index.html">home</a>
+        <a href="blog.html">blog</a>
+      </div>
+    </nav>
 
-        <section class="card">
-            <h1>notebook</h1>
-            <p>private door. you write, it saves. no deploys.</p>
+    <section class="card">
+      <h1>notebook</h1>
+      <p>private door. you write, it saves. no deploys.</p>
 
-            <form id="adminForm" autocomplete="off">
-                <div class="field">
-                    <div class="label">admin key</div>
-                    <input id="key" type="password" placeholder="lupita's key (secret)" />
-                </div>
+      <form id="adminForm" autocomplete="off">
+        <div class="field">
+          <div class="label">admin key</div>
+          <input id="key" type="password" placeholder="admin key (secret)" />
+          <div class="tinyhint">keep this page unlinked. bookmark it.</div>
+        </div>
 
-                <div class="row">
-                    <div class="field">
-                        <div class="label">title</div>
-                        <input id="title" type="text" placeholder="give it a small name" />
-                    </div>
+        <div class="row">
+          <div class="field">
+            <div class="label">title</div>
+            <input id="title" type="text" placeholder="give it a small name" />
+          </div>
 
-                    <div class="field">
-                        <div class="label">mood (optional)</div>
-                        <input id="mood" type="text" placeholder="foggy / tired / soft" />
-                    </div>
-                </div>
+          <div class="field">
+            <div class="label">mood (optional)</div>
+            <input id="mood" type="text" placeholder="foggy / tired / soft" />
+          </div>
+        </div>
 
-                <div class="field">
-                    <div class="label">thought</div>
-                    <textarea id="body" placeholder="type it plain. no pressure."></textarea>
-                </div>
+        <div class="field">
+          <div class="label">thought</div>
+          <textarea id="body" placeholder="type it plain. no pressure."></textarea>
+        </div>
 
-                <button class="btn" type="submit">publish</button>
-                <div id="status" class="status"></div>
+        <div class="row">
+          <div class="field">
+            <div class="label">embed type (optional)</div>
 
-                <div class="tinyhint">
-                    keep this page unlinked. bookmark it. rename it if you want.
-                </div>
-            </form>
-        </section>
-    </div>
+            <!-- dropdown = less typing; ids stay the same -->
+            <select id="embed_type">
+              <option value="">none</option>
+              <option value="youtube">youtube</option>
+              <option value="spotify">spotify</option>
+              <option value="link">link</option>
+            </select>
 
-    <script type="module" src="js/admin.js"></script>
+            <div class="tinyhint">one per post for now.</div>
+          </div>
+
+          <div class="field">
+            <div class="label">embed label (optional)</div>
+            <input id="embed_title" type="text" placeholder="tarot / soundtrack / mood" />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="label">embed id or url (optional)</div>
+          <input id="embed_ref" type="text" placeholder="youtube id or full url…" />
+          <div class="tinyhint">
+            youtube: paste a link or the id (<code>dQw4w9WgXcQ</code>)<br />
+            spotify/link: paste the full url
+          </div>
+        </div>
+
+        <button class="btn" type="submit">publish</button>
+        <div id="status" class="status"></div>
+
+        <div class="tinyhint">
+          if you’re feeling paranoid: rename this file + keep it off your nav.
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script type="module" src="js/admin.js"></script>
 </body>
 
 </html>
