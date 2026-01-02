@@ -249,3 +249,46 @@ p {
     content: "✦";
     text-shadow: 0 0 10px rgba(162, 132, 151, .35);
 }
+
+.embed {
+    margin-top: 14px;
+}
+
+.embed-label {
+    font-size: 12px;
+    color: var(--taupe);
+    margin-bottom: 6px;
+}
+
+.embed-frame {
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.embed-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.embed-spotify iframe {
+    width: 100%;
+    height: 152px;
+    border: 0;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.embed-link {
+    display: inline-block;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.22);
+    color: var(--ink);
+    text-decoration: none;
+}
